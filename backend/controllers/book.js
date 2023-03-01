@@ -70,9 +70,6 @@ const updateBook = async (req, res) => {
 
     res.status(200).json({
       message: "Succesfully update book",
-      data: {
-        id: req.params.id,
-      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -81,14 +78,14 @@ const updateBook = async (req, res) => {
 
 const deleteBook = async (req, res) => {
   try {
-    const deleteMember = await Book.deleteOne({ _id: req.params.id });
+    const deleteBook = await Book.deleteOne({ _id: req.params.id });
 
-    if (!deleteMember.deletedCount) {
+    if (!deleteBook.deletedCount) {
       return res.status(404).json({ message: "Member not found" });
     }
 
     return res.status(200).json({
-      message: "Succesfully delete book",
+      message: "Successfully delete book",
       data: {
         id: req.params.id,
       },

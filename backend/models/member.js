@@ -11,12 +11,10 @@ const member = new Schema(
       type: Date,
       default: null,
     },
-    borrowedBooks: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "book",
-      },
-    ],
+    borrowedBooks: {
+      type: Schema.Types.ObjectId,
+      ref: "book",
+    },
   },
   {
     timestamps: true,

@@ -1,29 +1,6 @@
 const Member = require("../models/member");
 const Book = require("../models/book");
 
-// const getAllMembersWithBorrowedBooks = async (req, res) => {
-//   try {
-//     // Find all members
-//     const members = await Member.find();
-
-//     // Get number of borrowed books for each member
-//     const memberData = await Promise.all(
-//       members.map(async (member) => {
-//         const borrowedBooks = await Book.find({
-//           borrowedBy: member._id,
-//           isBorrowed: true,
-//         });
-//         return { member, borrowedBooks: borrowedBooks.length };
-//       })
-//     );
-
-//     // Return the result
-//     res.status(200).json({ data: memberData });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 const getAllMembersWithBorrowedBooks = async (req, res) => {
   try {
     // Find all members
@@ -41,12 +18,10 @@ const getAllMembersWithBorrowedBooks = async (req, res) => {
     }
 
     // Return the result
-    res
-      .status(200)
-      .json({
-        message: "succesfully get member with borrowed the books",
-        data: memberData,
-      });
+    res.status(200).json({
+      message: "succesfully get member with borrowed the books",
+      data: memberData,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

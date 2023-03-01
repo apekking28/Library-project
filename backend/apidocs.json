@@ -1,0 +1,645 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Member",
+        "description": "List API Library",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "localhost"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Member",
+            "description": "Member"
+        },
+        {
+            "name": "Book",
+            "description": "Book"
+        },
+        {
+            "name": "Book Loans",
+            "description": "Book Loans"
+        }
+    ],
+    "paths": {
+        "/members": {
+            "get": {
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Get All Members With Borrowed Books",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "succesfully get member with borrowed the books"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Add a new member",
+                "description": "Add a new member to the library system.",
+                "operationId": "addMember",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                "name": "John Doe"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Member added successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Successfully add new member",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or member already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/members/{id}": {
+            "put": {
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Update a member",
+                "description": "Update an existing member in the library system.",
+                "operationId": "updateMember",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the member to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "ObjectId"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                "name": "John Doe"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Member updated successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Successfully update member",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or member already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Member not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Delete member by ID",
+                "description": "This endpoint is used to delete a member by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of member to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Successfully Deleted member",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or member already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Member not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books": {
+            "get": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get all the unborrowed book data",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "successfully obtained all book data that has not been loaned out."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Add a new book",
+                "description": "Add a new book to the library system.",
+                "operationId": "addMember",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                "title": "Title",
+                                "author": "Author"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book added successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Succesfully add new book",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or book already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Book already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{id}": {
+            "put": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Update a book",
+                "description": "Update an existing book in the library system.",
+                "operationId": "updateMember",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the book to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "ObjectId"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                "title": "title",
+                                "author": "Author"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book updated successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Succesfully update book",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or book already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Book not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Delete book by ID",
+                "description": "This endpoint is used to delete a book by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of member to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Book Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Successfully Deleted book",
+                                    "data": {
+                                        "id": "6161d6b8c0a1d25aefaf7d2e"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Please fill in all fields or book already exist in our system.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Member already exist in our system"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Book not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Book not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Error message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/borrow": {
+            "post": {
+                "summary": "Borrow a book",
+                "tags": [
+                    "Book Loans"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "borrowedBy": {
+                                        "type": "string",
+                                        "description": "The ID of the member who will borrow the book",
+                                        "example": "6176a1c784bbf8276a05a5a5"
+                                    },
+                                    "borrowedBooks": {
+                                        "type": "string",
+                                        "description": "The ID of the book to be borrowed",
+                                        "example": "61769fe398d89c0bf7ee83e2"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully borrowed book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully lending books"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "bookId": {
+                                                    "type": "string",
+                                                    "description": "The ID of the borrowed book",
+                                                    "example": "61769fe398d89c0bf7ee83e2"
+                                                },
+                                                "memberId": {
+                                                    "type": "string",
+                                                    "description": "The ID of the member who borrowed the book",
+                                                    "example": "6176a1c784bbf8276a05a5a5"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/return": {
+            "post": {
+                "tags": [
+                    "Book Loans"
+                ],
+                "summary": "Return a borrowed book",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "borrowedBy": {
+                                        "type": "string",
+                                        "description": "ID of the member who borrowed the book",
+                                        "example": "61785a4b4a7d4d20e12c8705"
+                                    },
+                                    "borrowedBooks": {
+                                        "type": "string",
+                                        "description": "ID of the book that is being returned",
+                                        "example": "61785a4b4a7d4d20e12c8706"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully returned book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Success message",
+                                            "example": "Successfully returned book"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "bookId": {
+                                                    "type": "string",
+                                                    "description": "ID of the returned book",
+                                                    "example": "61785a4b4a7d4d20e12c8706"
+                                                },
+                                                "memberId": {
+                                                    "type": "string",
+                                                    "description": "ID of the member who returned the book",
+                                                    "example": "61785a4b4a7d4d20e12c8705"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error in returning book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Error message",
+                                            "example": "Book not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Error message",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
