@@ -15,7 +15,7 @@
 
 1. Install all existing dependencies or modules
 2. Make sure the server is running in the backend folder
-3. go to the path "http://localhost:5000/api-docs" to see all API documentations
+3. go to path "http://localhost:5000/api-docs" to see the documentation of all APIs with responses
 
 and you can see the results of the path "http://localhost:5000/api-docs" as follows: 
 
