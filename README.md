@@ -4,7 +4,7 @@
 # A.Technology 
 - Node js
 - Express 
-_ Swagger
+- Swagger
 - Jest
 - Monggose
 - Mongo DB
